@@ -22,7 +22,7 @@ async def main():
     async def disconnect():
         print("disconnected from server")
 
-    await sio.connect(url, socketio_path="/ws/socket.io")
+    await sio.connect(url, socketio_path="/ws/socket.io", wait_timeout=10)
     await sio.wait()
 
 
@@ -37,7 +37,7 @@ def connect_n(n: int, batch: int):
 
 if __name__ == "__main__":
     # Run on a bunch of different processes
-    num_pools = 10
-    batch_size = 50
+    num_pools = 3
+    batch_size = 100
     with Pool(num_pools) as pool:
         a = pool.starmap(connect_n, [(batch_size, i) for i in range(num_pools)])
