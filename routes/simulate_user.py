@@ -39,9 +39,10 @@ async def connect_to_waiting_room(url, token):
     print("URL:", url + "/waiting-room", "/ws/socket.io")
 
     await sio.connect(
-        url + "/waiting-room",
+        url,
         socketio_path="/ws/socket.io",
         wait_timeout=10,
+        namespaces="/waiting-room",
         auth={"token": token},
     )
     await sio.wait()
